@@ -1,0 +1,129 @@
+"use client";
+
+import * as React from "react";
+import { useTheme } from "next-themes";
+import { Moon, Sun, Menu, Github, Search, FileText, Settings } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetTitle,
+} from "@/components/ui/sheet";
+import { DocsSidebar } from "./docs-sidebar";
+
+export function DocsHeader({
+  active,
+  onSelect,
+}: {
+  active: string;
+  onSelect: (id: string) => void;
+}) {
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+
+  React.useEffect(() => setMounted(true), []);
+
+  const handleSelect = (id: string) => {
+    onSelect(id);
+    setOpen(false);
+  };
+
+  return (
+    <header className="sticky top-0 z-40 w-full border-b border-border bg-background/80 backdrop-blur-md">
+      <div className="flex h-14 items-center gap-3 px-4 lg:px-6">
+        {/* 移动端菜单 */}
+        <Sheet open={open} onOpenChange={setOpen}>
+          <SheetTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="lg:hidden"
+              aria-label="打开菜单"
+            >
+              <Menu className="size-5" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="w-72 p-0 overflow-y-auto">
+            <SheetTitle className="sr-only">导航菜单</SheetTitle>
+            <div className="flex h-14 items-center gap-2 border-b border-border px-4">
+              <Logo />
+              <span className="font-bold text-lg">yttAPI</span>
+            </div>
+            <DocsSidebar active={active} onSelect={handleSelect} />
+          </SheetContent>
+        </Sheet>
+
+        {/* Logo */}
+        <a href="#" className="flex items-center gap-2 shrink-0">
+          <Logo />
+          <span className="font-bold text-lg tracking-tight hidden sm:inline">
+            yttAPI
+          </span>
+        </a>
+
+        <div className="flex-1" />
+
+        {/* 搜索框（装饰） */}
+        <div className="hidden md:flex items-center gap-2 rounded-lg border border-border bg-muted/40 px-3 py-1.5 text-sm text-muted-foreground cursor-pointer hover:bg-muted transition-colors w-56">
+          <Search className="size-4" />
+          <span>搜索文档...</span>
+          <kbd className="ml-auto rounded bg-background px-1.5 py-0.5 text-[10px] font-mono border border-border">
+            ⌘K
+          </kbd>
+        </div>
+
+        {/* 文章 */}
+        <Button variant="ghost" size="sm" asChild className="hidden sm:flex">
+          <a href="/articles">
+            <FileText className="size-4" />
+            文章
+          </a>
+        </Button>
+
+
+        {/* 主题切换 */}
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          aria-label="切换主题"
+        >
+          {mounted && theme === "dark" ? (
+            <Sun className="size-5" />
+          ) : (
+            <Moon className="size-5" />
+          )}
+        </Button>
+
+        {/* GitHub */}
+        <Button variant="ghost" size="icon" asChild aria-label="GitHub">
+          <a href="https://github.com/yttbz/yttAPI" target="_blank" rel="noreferrer">
+            <Github className="size-5" />
+          </a>
+        </Button>
+      </div>
+    </header>
+  );
+}
+
+function Logo() {
+  return (
+    <div className="flex size-8 items-center justify-center rounded-md bg-foreground text-background">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        className="size-5"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+        <circle cx="9" cy="9" r="2" />
+        <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+      </svg>
+    </div>
+  );
+}

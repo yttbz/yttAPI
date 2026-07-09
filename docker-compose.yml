@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  yttapi:
+    build: .
+    container_name: yttapi
+    restart: unless-stopped
+    ports:
+      - "3010:3010"
+    environment:
+      - PORT=3010
+      - NODE_ENV=production
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin123}
+      - ADMIN_SECRET=${ADMIN_SECRET:-change-me}
+      - DATABASE_URL=file:/app/data/dev.db
+      - IMAGE_PC_DIR=/images/pc
+      - IMAGE_PHON_DIR=/images/phon
+      - IMAGE_PP_DIR=/images/pp
+      - IMAGE_BG_DIR=/images/bg
+    volumes:
+      - ./data:/app/data
+      - /home/ytt/photo/pc:/images/pc:ro
+      - /home/ytt/photo/phon:/images/phon:ro
+      - /home/ytt/photo/pp:/images/pp:ro
+      - /home/ytt/photo/bg:/images/bg:ro
+      - /home/ytt/photo/ip:/home/ytt/photo/ip
+    networks:
+      - yttapi_net
+
+networks:
+  yttapi_net:
+    driver: bridge
