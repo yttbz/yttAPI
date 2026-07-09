@@ -2,6 +2,11 @@
 
 一个模仿 [loliapi.com](https://docs.loliapi.com) 的随机图片 API 服务，附带完整的后台管理系统（图片管理 + 文章管理），适配移动端和电脑端。
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-blue)](https://www.docker.com/)
+
 ## ✨ 功能特性
 
 ### 图片 API（前台）
@@ -144,6 +149,24 @@ src/
 ![随机图片](https://your-domain.com/api/acg/pc)
 ```
 
+## 🤝 贡献指南
+
+欢迎贡献代码！请遵循以下步骤：
+
+1. Fork 本仓库
+2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
+3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
+4. 推送到分支 (`git push origin feature/AmazingFeature`)
+5. 创建 Pull Request
+
+## 🙏 致谢
+
+- [Next.js](https://nextjs.org/) - React 框架
+- [Tailwind CSS](https://tailwindcss.com/) - CSS 框架
+- [Prisma](https://www.prisma.io/) - ORM
+- [shadcn/ui](https://ui.shadcn.com/) - UI 组件库
+- [loliapi.com](https://docs.loliapi.com) - 灵感来源
+
 ## 📄 License
 
-MIT
+本项目采用 [MIT](LICENSE) 许可证
